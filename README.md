@@ -12,3 +12,6 @@ Acesse o site:
 Confira a plataforma em funcionamento: Barbearia Machado
 
 Este projeto é um exemplo de como tecnologias modernas podem ser combinadas para criar soluções acessíveis e eficientes, sem deixar de lado a compatibilidade com dispositivos e navegadores mais antigos. 🚀
+
+Acesse e teste: https://barbearia-machado.vercel.app/
+
