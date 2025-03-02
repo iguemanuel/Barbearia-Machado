@@ -1,9 +1,9 @@
-import { apiConfig } from "./api-config";
+import { api, endpoints } from './api-config';
 
 export async function scheduleNew({ id, clientName, when }) {
   try {
     //faz a requisicao para enviar os dados do agendamento para a API
-    await fetch(`${apiConfig.baseURL}/schedules`, {
+    await fetch(`${api.baseURL}${endpoints.schedules}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

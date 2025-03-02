@@ -1,10 +1,9 @@
-import { apiConfig } from "./api-config";
+import { api, endpoints } from './api-config';
 import dayjs from "dayjs";
 
 export async function scheduleFetchByDay(date) {
-  // Recebe `date` diretamente
   try {
-    const response = await fetch(`${apiConfig.baseURL}/schedules`);
+    const response = await fetch(`${api.baseURL}${endpoints.schedules}`);
 
     // Verifica se a resposta da API foi bem-sucedida
     if (!response.ok) {
