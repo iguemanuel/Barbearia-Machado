@@ -1,6 +1,6 @@
 import { scheduleCancel } from "../../services/shcedule-cancel"; // Corrigi o nome do arquivo
 import { schedulesDays } from "./load";
-import swal
+import Swal from "sweetalert2";
 
 const periods = document.querySelectorAll(".period");
 
@@ -14,14 +14,29 @@ periods.forEach((period) => {
 
       // Verifique se o ID existe e é uma string válida
       if (id && typeof id === "string") {
-        const confirm = window.confirm("Deseja realmente cancelar o agendamento?");
+        // Aguarda a resposta do Swal
+        const result = await Swal.fire({
+          title: "Tem certeza que deseja cancelar o horario?",
+          text: "Você não poderá reverter isso",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Sim, quero deletar!",
+          cancelButtonText: "Cancelar",
+        });
 
-        if (confirm) {
-          // Passa o ID diretamente para o método scheduleCancel
-          await scheduleCancel(id);
+        // Agora a verificação funciona corretamente
+        if (result.isConfirmed) {
+          await scheduleCancel(id); // Cancela o agendamento
+          await Swal.fire({
+            title: "Deletado!",
+            text: "Agendamento cancelado com sucesso",
+            icon: "success",
+            timer: 1500,
+          });
 
-          // Atualiza a lista de agendamentos
-          schedulesDays();
+          schedulesDays(); // Atualiza a lista de agendamentos
         }
       } else {
         console.error("ID não encontrado ou inválido:", id);
@@ -29,4 +44,3 @@ periods.forEach((period) => {
     }
   });
 });
-
