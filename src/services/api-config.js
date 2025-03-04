@@ -5,7 +5,7 @@ const api = axios.create({
 });
 
 const endpoints = { 
-  schedules: "/api/collections/schedules/records"
-}
+  schedules: "api/collections/schedules/records"
+};
 
-export default { api, endpoints };
+export { api, endpoints };

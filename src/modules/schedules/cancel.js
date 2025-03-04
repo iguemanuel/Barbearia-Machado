@@ -1,5 +1,6 @@
 import { scheduleCancel } from "../../services/shcedule-cancel"; // Corrigi o nome do arquivo
 import { schedulesDays } from "./load";
+import swal
 
 const periods = document.querySelectorAll(".period");
 
@@ -8,25 +9,24 @@ periods.forEach((period) => {
     if (event.target.classList.contains("cancel-icon")) {
       const item = event.target.closest("li");
 
-      // Obtém o ID do dataset e converte para número (se necessário)
+      // Obtém o ID do dataset (garante que seja uma string)
       const { id } = item.dataset;
 
-      if (id) {
-        const confirm = window.confirm(
-          "Deseja realmente cancelar o agendamento?"
-        );
+      // Verifique se o ID existe e é uma string válida
+      if (id && typeof id === "string") {
+        const confirm = window.confirm("Deseja realmente cancelar o agendamento?");
 
         if (confirm) {
-          // Converte o ID para número (se o backend espera um número)
-          const idNumber = Number(id);
-
-          // Chama a função para cancelar o agendamento
-          await scheduleCancel({ id: idNumber });
+          // Passa o ID diretamente para o método scheduleCancel
+          await scheduleCancel(id);
 
           // Atualiza a lista de agendamentos
           schedulesDays();
         }
+      } else {
+        console.error("ID não encontrado ou inválido:", id);
       }
     }
   });
 });
+

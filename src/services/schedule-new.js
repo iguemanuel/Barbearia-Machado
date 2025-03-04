@@ -1,21 +1,23 @@
 import { api, endpoints } from './api-config';
 
-export async function scheduleNew({ id, clientName, when }) {
+export async function scheduleNew({ clientName, when }) {
   try {
-    //faz a requisicao para enviar os dados do agendamento para a API
-    await fetch(`${api.baseURL}${endpoints.schedules}`, {
+    const response = await fetch(`${api.defaults.baseURL}${endpoints.schedules}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        id,
         clientName,
         when,
       }),
     });
 
-    alert("Horário agendado com sucesso");
+    if (!response.ok) {
+      throw new Error("Erro ao criar o agendamento");
+    }
+
+    alert("Horário agendado com sucesso!");
   } catch (error) {
     console.error(error);
     alert("Erro ao agendar horário");

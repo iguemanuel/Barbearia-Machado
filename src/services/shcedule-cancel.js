@@ -1,19 +1,24 @@
 import { api, endpoints } from './api-config';
+import axios from 'axios';
 
-export async function scheduleCancel({ id }) {
+export async function scheduleCancel(id) {
   try {
-    const response = await fetch(`${api.baseURL}${endpoints.schedules}`, {
-      method: "DELETE",
+    // A URL já está com o id como string
+    const url = `${api.defaults.baseURL}api/collections/schedules/records/${id}`;
+    console.log("Tentando deletar com URL:", url);
+
+    const response = await axios.delete(url, {
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
 
-    // Verifica se a requisição foi bem-sucedida
-    if (!response.ok) {
-      throw new Error(`Erro ao cancelar agendamento: ${response.statusText}`);
-    }
-
-    console.log("Agendamento cancelado com sucesso!");
+    console.log('Agendamento deletado com sucesso:', response.data);
+    return response.data;
   } catch (error) {
-    console.error(error);
-    alert("Erro ao cancelar o agendamento.");
+    console.error('Erro ao deletar agendamento:', error.response?.data || error.message);
+    throw error;
   }
 }
+
+
