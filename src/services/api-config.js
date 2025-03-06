@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://barbearia-machado.sv1.igoremanuel.site/",
+  baseURL: "https://barbearia-machado.sv1.igoremanuel.site/",
 });
 
 const endpoints = { 

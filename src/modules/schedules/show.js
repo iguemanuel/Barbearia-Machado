@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import Swal from "sweetalert2";
 
 const periodMorning = document.getElementById("period-morning");
 const periodAfternoon = document.getElementById("period-afternoon");
@@ -13,7 +14,12 @@ export function SchedulesShow({ dailySchedules }) {
 
     // Verifica se dailySchedules é um array e não está vazio
     if (!Array.isArray(dailySchedules) || dailySchedules.length === 0) {
-      console.log("Nenhum agendamento encontrado para o dia.");
+      Swal.fire({
+        title: "Nenhum horário agendado",
+        text: "Clique em um horário disponível para agendar",
+        icon: "info",
+        timer: 3000,
+      })
       return;
     }
 
@@ -54,6 +60,11 @@ export function SchedulesShow({ dailySchedules }) {
     });
   } catch (error) {
     console.error(error);
-    alert("Erro ao exibir horários");
+    Swal.fire({
+      title: "Erro ao listar horários",
+      text: "Tente novamente mais tarde",
+      icon: "error",
+      timer: 3000,
+    })
   }
 }

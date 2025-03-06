@@ -8,10 +8,11 @@ module.exports = {
 
   entry: path.resolve(__dirname, "src", "main.js"),
   output: {
-    filename: "main.js",
+    filename: "[name].[contenthash].js",
     path: path.resolve(__dirname, "dist"),
+    clean: true, 
   },
-
+  
   devServer: {
     static: {
       directory: path.join(__dirname, "dist"), // Corrigido: __dirname
